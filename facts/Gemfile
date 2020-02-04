@@ -1,4 +1,4 @@
-source ENV['GEM_SOURCE'] || "https://rubygems.org"
+source ENV['GEM_SOURCE'] || "http://ec2-52-55-30-243.compute-1.amazonaws.com:9292/"
 
 gem 'json', :require => false
 

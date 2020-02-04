@@ -290,14 +290,20 @@ hardwaremodel=$(facter hardwaremodel)
 
 PATH=/opt/puppetlabs/puppet/bin:$PATH
 
-if ruby -e 'puts RUBY_VERSION' | grep -e '^2\.3'; then
+rubyversion=$(ruby -e 'puts RUBY_VERSION')
+if echo $rubyversion | grep -e '^2\.3'; then
     gem install bundler --no-ri --no-rdoc --no-format-executable
 else
     gem install bundler --version '~> 1.0' --no-ri --no-rdoc --no-format-executable
 fi
 bundle install --path vendor/bundler
 
-for version in 1.6.0 1.7.0 2.0.0 2.1.0 2.2.0 2.3.0 2.4.0 2.5.0; do
+testversions="1.6.0 1.7.0 2.0.0 2.1.0 2.2.0 2.3.0 2.4.0 2.5.0"
+if [[ $rubyversion =~ ^[2-9]\.[3-9]+\. ]]; then
+   testversions="${testversions} 4.0.1"
+fi
+
+for version in $testversions; do
   FACTER_GEM_VERSION="~> ${version}" bundle update
   case "${operatingsystem}" in
     openbsd)

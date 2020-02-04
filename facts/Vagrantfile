@@ -11,25 +11,25 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.gui = false
   end
 
-  config.vm.define "debian-6-x86_64" do |host|
-    host.vm.box = "puppetlabs/debian-6.0.10-64-nocm"
-    host.vm.provision "shell", inline: [
-      "echo 'deb [allow-insecure=yes,trusted=yes] http://archive.debian.org/debian squeeze main' > /etc/apt/sources.list",
-      "echo 'deb [allow-insecure=yes,trusted=yes] http://archive.debian.org/debian-security squeeze/updates main contrib' >> /etc/apt/sources.list",
-      "apt-get update",
-      "apt-get install -y --force-yes ruby rubygems",
-    ].join(' && ')
-    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
-    host.vm.provision "shell", path: "get_facts.sh"
-    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
-  end
-  config.vm.define "debian-7-x86_64" do |host|
-    host.vm.box = "puppetlabs/debian-7.8-64-nocm"
-    host.vm.provision "shell", inline: "apt-get update && apt-get install -y ruby rubygems ruby-dev"
-    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
-    host.vm.provision "shell", path: "get_facts.sh"
-    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
-  end
+#  config.vm.define "debian-6-x86_64" do |host|
+#    host.vm.box = "puppetlabs/debian-6.0.10-64-nocm"
+#    host.vm.provision "shell", inline: [
+#      "echo 'deb [allow-insecure=yes,trusted=yes] http://archive.debian.org/debian squeeze main' > /etc/apt/sources.list",
+#      "echo 'deb [allow-insecure=yes,trusted=yes] http://archive.debian.org/debian-security squeeze/updates main contrib' >> /etc/apt/sources.list",
+#      "apt-get update",
+#      "apt-get install -y --force-yes ruby rubygems",
+#    ].join(' && ')
+#    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
+#    host.vm.provision "shell", path: "get_facts.sh"
+#    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
+#  end
+#  config.vm.define "debian-7-x86_64" do |host|
+#    host.vm.box = "puppetlabs/debian-7.8-64-nocm"
+#    host.vm.provision "shell", inline: "apt-get update && apt-get install -y ruby rubygems ruby-dev"
+#    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
+#    host.vm.provision "shell", path: "get_facts.sh"
+#    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
+#  end
   config.vm.define "debian-8-x86_64" do |host|
     host.vm.box = "debian/jessie64"
     host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
@@ -48,22 +48,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     host.vm.provision "shell", path: "get_facts.sh"
     host.vm.provision "shell", inline: "/sbin/shutdown -h now"
   end
-  config.vm.define "ubuntu-10.04-x86_64" do |host|
-    host.vm.box = "ubuntu-server-10044-x64-vbox4210-nocm"
-    host.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-10044-x64-vbox4210-nocm.box"
-    host.vm.provision "shell", inline: "apt-get update && apt-get install -y ruby ruby-dev rubygems libopenssl-ruby"
-    host.vm.provision "shell", inline: "gem install rubygems-update && /var/lib/gems/1.8/bin/update_rubygems"
-    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
-    host.vm.provision "shell", path: "get_facts.sh"
-    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
-  end
-  config.vm.define "ubuntu-12.04-x86_64" do |host|
-    host.vm.box = "puppetlabs/ubuntu-12.04-64-nocm"
-    host.vm.provision "shell", inline: "apt-get update && apt-get install -y rubygems"
-    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
-    host.vm.provision "shell", path: "get_facts.sh"
-    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
-  end
+#  config.vm.define "ubuntu-10.04-x86_64" do |host|
+#    host.vm.box = "ubuntu-server-10044-x64-vbox4210-nocm"
+#    host.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-10044-x64-vbox4210-nocm.box"
+#    host.vm.provision "shell", inline: "apt-get update && apt-get install -y ruby ruby-dev rubygems libopenssl-ruby"
+#    host.vm.provision "shell", inline: "gem install rubygems-update && /var/lib/gems/1.8/bin/update_rubygems"
+#    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
+#    host.vm.provision "shell", path: "get_facts.sh"
+#    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
+#  end
+#  config.vm.define "ubuntu-12.04-x86_64" do |host|
+#    host.vm.box = "puppetlabs/ubuntu-12.04-64-nocm"
+#    host.vm.provision "shell", inline: "apt-get update && apt-get install -y rubygems"
+#    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
+#    host.vm.provision "shell", path: "get_facts.sh"
+#    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
+#  end
   config.vm.define "ubuntu-14.04-x86_64" do |host|
     host.vm.box = "puppetlabs/ubuntu-14.04-64-nocm"
     host.vm.provision "shell", inline: "apt-get update && apt-get install -y ruby ruby-dev"
@@ -78,34 +78,34 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     host.vm.provision "shell", path: "get_facts.sh"
     host.vm.provision "shell", inline: "/sbin/shutdown -h now"
   end
-  config.vm.define "ubuntu-15.04-x86_64" do |host|
-    host.vm.box = "ubuntu/vivid64"
-    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
-    host.vm.provision "shell", path: "get_facts.sh"
-    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
-  end
-  config.vm.define "ubuntu-15.10-x86_64" do |host|
-    host.vm.box = "sgallen/wily64"
-    host.vm.network :private_network, ip: '10.0.0.2'
-    host.vm.synced_folder ".", "/vagrant", :nfs => true
-    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
-    host.vm.provision "shell", path: "get_facts.sh"
-    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
-  end
-  config.vm.define "linuxmint-18-x86_64" do |host|
-    host.vm.box = "artem-sidorenko/mint-18.1-cinnamon"
-    host.vm.provision "shell", inline: "apt-get update && apt-get install -y ruby ruby-dev libc6-dev"
-    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
-    host.vm.provision "shell", path: "get_facts.sh"
-    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
-  end
-  config.vm.define "linuxmint-19-x86_64" do |host|
-    host.vm.box = "ltsp/linuxmint-19.1-cinnamon-64bit"
-    host.vm.provision "shell", inline: "export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y ruby ruby-dev libc6-dev"
-    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
-    host.vm.provision "shell", path: "get_facts.sh"
-    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
-  end
+#  config.vm.define "ubuntu-15.04-x86_64" do |host|
+#    host.vm.box = "ubuntu/vivid64"
+#    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
+#    host.vm.provision "shell", path: "get_facts.sh"
+#    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
+#  end
+#  config.vm.define "ubuntu-15.10-x86_64" do |host|
+#    host.vm.box = "sgallen/wily64"
+#    host.vm.network :private_network, ip: '10.0.0.2'
+#    host.vm.synced_folder ".", "/vagrant", :nfs => true
+#    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
+#    host.vm.provision "shell", path: "get_facts.sh"
+#    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
+#  end
+#  config.vm.define "linuxmint-18-x86_64" do |host|
+#   host.vm.box = "artem-sidorenko/mint-18.1-cinnamon"
+#   host.vm.provision "shell", inline: "apt-get update && apt-get install -y ruby ruby-dev libc6-dev"
+#   host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
+#   host.vm.provision "shell", path: "get_facts.sh"
+#   host.vm.provision "shell", inline: "/sbin/shutdown -h now"
+#  end
+#  config.vm.define "linuxmint-19-x86_64" do |host|
+#    host.vm.box = "ltsp/linuxmint-19.1-cinnamon-64bit"
+#    host.vm.provision "shell", inline: "export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y ruby ruby-dev libc6-dev"
+#    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
+#    host.vm.provision "shell", path: "get_facts.sh"
+#    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
+#  end
   config.vm.define "ubuntu-16.04-x86_64" do |host|
     host.vm.box = "ubuntu/xenial64"
     host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
@@ -158,48 +158,48 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     host.vm.provision "shell", path: "get_facts.sh"
     host.vm.provision "shell", inline: "/sbin/shutdown -h now"
   end
-  config.vm.define "fedora-19-x86_64" do |host|
-    host.vm.box = "rafacas/fedora19-plain"
-    host.vm.provision "shell", inline: "yum -y install ruby ruby-devel"
-    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
-    host.vm.provision "shell", path: "get_facts.sh"
-    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
-  end
-  config.vm.define "fedora-22-x86_64" do |host|
-    host.vm.box = "bento/fedora-22"
-    host.vm.provision "shell", inline: "dnf -y install gcc glibc-devel"
-    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
-    host.vm.provision "shell", path: "get_facts.sh"
-    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
-  end
-  config.vm.define "fedora-23-x86_64" do |host|
-    host.vm.box = "bento/fedora-23"
-    host.vm.provision "shell", inline: "dnf -y install gcc glibc-devel"
-    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
-    host.vm.provision "shell", path: "get_facts.sh"
-    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
-  end
-  config.vm.define "fedora-24-x86_64" do |host|
-    host.vm.box = "bento/fedora-24"
-    host.vm.provision "shell", inline: "dnf -y install gcc glibc-devel"
-    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
-    host.vm.provision "shell", path: "get_facts.sh"
-    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
-  end
-  config.vm.define "fedora-26-x86_64" do |host|
-    host.vm.box = "bento/fedora-26"
-    host.vm.provision "shell", inline: "dnf -y install gcc glibc-devel"
-    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
-    host.vm.provision "shell", path: "get_facts.sh"
-    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
-  end
-  config.vm.define "fedora-27-x86_64" do |host|
-    host.vm.box = "bento/fedora-27"
-    host.vm.provision "shell", inline: "dnf -y install gcc glibc-devel"
-    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
-    host.vm.provision "shell", path: "get_facts.sh"
-    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
-  end
+#  config.vm.define "fedora-19-x86_64" do |host|
+#    host.vm.box = "rafacas/fedora19-plain"
+#    host.vm.provision "shell", inline: "yum -y install ruby ruby-devel"
+#    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
+#    host.vm.provision "shell", path: "get_facts.sh"
+#    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
+#  end
+#  config.vm.define "fedora-22-x86_64" do |host|
+#    host.vm.box = "bento/fedora-22"
+#    host.vm.provision "shell", inline: "dnf -y install gcc glibc-devel"
+#    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
+#    host.vm.provision "shell", path: "get_facts.sh"
+#    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
+#  end
+#  config.vm.define "fedora-23-x86_64" do |host|
+#    host.vm.box = "bento/fedora-23"
+#    host.vm.provision "shell", inline: "dnf -y install gcc glibc-devel"
+#    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
+#    host.vm.provision "shell", path: "get_facts.sh"
+#    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
+#  end
+#  config.vm.define "fedora-24-x86_64" do |host|
+#    host.vm.box = "bento/fedora-24"
+#    host.vm.provision "shell", inline: "dnf -y install gcc glibc-devel"
+#    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
+#    host.vm.provision "shell", path: "get_facts.sh"
+#    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
+#  end
+#  config.vm.define "fedora-26-x86_64" do |host|
+#    host.vm.box = "bento/fedora-26"
+#    host.vm.provision "shell", inline: "dnf -y install gcc glibc-devel"
+#    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
+#    host.vm.provision "shell", path: "get_facts.sh"
+#    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
+#  end
+#  config.vm.define "fedora-27-x86_64" do |host|
+#    host.vm.box = "bento/fedora-27"
+#    host.vm.provision "shell", inline: "dnf -y install gcc glibc-devel"
+#    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
+#    host.vm.provision "shell", path: "get_facts.sh"
+#    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
+#  end
   config.vm.define "fedora-28-x86_64" do |host|
     host.vm.box = "bento/fedora-28"
     host.vm.synced_folder ".", "/vagrant"
@@ -224,26 +224,26 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     host.vm.provision "shell", path: "get_facts.sh"
     host.vm.provision "shell", inline: "/sbin/shutdown -h now"
   end
-  config.vm.define "archlinux-x86_64" do |host|
-    host.vm.box = "archlinux/archlinux"
-    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
-    #host.vm.provision "shell", path: "get_facts.sh"
-    #host.vm.provision "shell", inline: "/sbin/shutdown -h now"
-  end
-  config.vm.define "sles-11sp1-x86_64" do |host|
-    host.vm.box = "suse/sles11sp3"
-    host.vm.network "private_network", ip: "192.168.123.2"
-    host.vm.synced_folder ".", "/vagrant", type: "nfs"
-    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
-    host.vm.provision "shell", path: "get_facts.sh"
-    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
-  end
-  config.vm.define "sles-12sp1-x86_64" do |host|
-    host.vm.box = "idar/sles12sp3"
-    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
-    host.vm.provision "shell", path: "get_facts.sh"
-    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
-  end
+#  config.vm.define "archlinux-x86_64" do |host|
+#    host.vm.box = "archlinux/archlinux"
+#    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
+#    #host.vm.provision "shell", path: "get_facts.sh"
+#    #host.vm.provision "shell", inline: "/sbin/shutdown -h now"
+#  end
+#  config.vm.define "sles-11sp1-x86_64" do |host|
+#    host.vm.box = "suse/sles11sp3"
+#    host.vm.network "private_network", ip: "192.168.123.2"
+#    host.vm.synced_folder ".", "/vagrant", type: "nfs"
+#    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
+#    host.vm.provision "shell", path: "get_facts.sh"
+#    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
+#  end
+#  config.vm.define "sles-12sp1-x86_64" do |host|
+#    host.vm.box = "idar/sles12sp3"
+#    host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
+#    host.vm.provision "shell", path: "get_facts.sh"
+#    host.vm.provision "shell", inline: "/sbin/shutdown -h now"
+#  end
   config.vm.define "sles-15-x86_64" do |host|
     host.vm.box = "trueability/sles-15-sp1"
     host.vm.provision "file", source: "Gemfile", destination: "Gemfile"
